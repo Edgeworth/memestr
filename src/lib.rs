@@ -76,7 +76,11 @@ impl Str {
     #[must_use]
     pub const fn index(&self, i: usize) -> char {
         assert!(i < Self::max_size(), "access out of bounds");
-        if i < Str16::max_size() { self.0.index(i) } else { self.1.index(i - Str16::max_size()) }
+        if i < Str16::max_size() {
+            self.0.index(i)
+        } else {
+            self.1.index(i - Str16::max_size())
+        }
     }
 
     #[must_use]

@@ -11,13 +11,5 @@ version = "0.1.0"
 
 [dependencies]
 derive_more = "0.99.17"
-eyre = "0.6.7"
-serde = {version = "1.0.136", features = ["derive"]}
-
-# Build dependencies with optimisations - debug builds will run faster
-# but dependencies don't change often.
-[profile.dev.package."*"]
-opt-level = 3
-
-[profile.release]
-lto = true
+eyre = "0.6.8"
+serde = { version = "1.0.137", features = ["derive"] }
