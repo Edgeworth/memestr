@@ -44,3 +44,15 @@ pub mod str8;
 pub use str16::Str16;
 pub use str32::Str32;
 pub use str8::Str8;
+
+pub type Str = Str32;
+
+#[macro_export]
+macro_rules! s {
+    ($s:literal) => {
+        $crate::Str32::from_literal($s)
+    };
+    ($s:expr) => {
+        $crate::Str32::from_literal($s)
+    };
+}
