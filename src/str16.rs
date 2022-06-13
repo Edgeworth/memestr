@@ -6,18 +6,18 @@ use eyre::{eyre, Result};
 use serde::de::{self, Visitor};
 use serde::{Deserialize, Serialize};
 
+#[must_use]
 #[derive(Default, Eq, PartialEq, Hash, Ord, PartialOrd, Copy, Clone, Display)]
 #[display(fmt = "{}", "String::from(*self)")]
 pub struct Str16(pub u128);
 
 impl fmt::Debug for Str16 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self)
+        write!(f, "{self}")
     }
 }
 
 impl Str16 {
-    #[must_use]
     pub const fn empty() -> Self {
         Self(0)
     }
@@ -38,12 +38,10 @@ impl Str16 {
         ((self.0 & (0xFF << (i * 8))) >> (i * 8)) as u8 as char
     }
 
-    #[must_use]
     pub const fn from_bytes(s: [u8; mem::size_of::<u128>()]) -> Self {
         Self(u128::from_le_bytes(s))
     }
 
-    #[must_use]
     pub const fn from_literal(s: &'static str) -> Self {
         const MAXSZ: usize = Str16::max_size();
         assert!(s.len() <= MAXSZ, "too many bytes to make sid");
@@ -57,7 +55,6 @@ impl Str16 {
         Self(u128::from_le_bytes(bytes))
     }
 
-    #[must_use]
     pub const fn to_ascii_lowercase(self) -> Self {
         let v = self.0
             | (((self.0 + 0x3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f)
@@ -67,7 +64,6 @@ impl Str16 {
         Self(v)
     }
 
-    #[must_use]
     pub const fn to_ascii_uppercase(self) -> Self {
         let v = self.0
             & !(((self.0 + 0x1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f)
@@ -157,6 +153,8 @@ macro_rules! s16 {
 
 #[cfg(test)]
 mod tests {
+    use pretty_assertions::assert_eq;
+
     #[test]
     fn str() {
         assert_eq!("asdf", String::from(s16!("asdf")));
