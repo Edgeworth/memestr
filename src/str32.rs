@@ -10,18 +10,18 @@ use crate::str16::Str16;
 
 // These strings have a constant size in memory but are null terminated unless
 // they take up the whole max size of the string.
+#[must_use]
 #[derive(Default, Eq, PartialEq, Hash, Ord, PartialOrd, Copy, Clone, Display)]
 #[display(fmt = "{}", "String::from(*self)")]
 pub struct Str32(pub Str16, pub Str16);
 
 impl fmt::Debug for Str32 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self)
+        write!(f, "{self}")
     }
 }
 
 impl Str32 {
-    #[must_use]
     pub const fn empty() -> Self {
         Self(Str16::empty(), Str16::empty())
     }
@@ -46,8 +46,7 @@ impl Str32 {
         }
     }
 
-    #[must_use]
-    pub const fn from_literal(s: &'static str) -> Str32 {
+    pub const fn from_literal(s: &'static str) -> Self {
         const MAXSZ: usize = 16;
         assert!(s.len() <= MAXSZ * 2, "too many bytes to make str");
         let mut b0 = [0; MAXSZ];
@@ -65,12 +64,10 @@ impl Str32 {
         Self(Str16::from_bytes(b0), Str16::from_bytes(b1))
     }
 
-    #[must_use]
     pub const fn to_ascii_lowercase(self) -> Self {
         Self(self.0.to_ascii_lowercase(), self.1.to_ascii_lowercase())
     }
 
-    #[must_use]
     pub const fn to_ascii_uppercase(self) -> Self {
         Self(self.0.to_ascii_uppercase(), self.1.to_ascii_uppercase())
     }
@@ -138,6 +135,7 @@ macro_rules! s32 {
 
 #[cfg(test)]
 mod tests {
+    use pretty_assertions::assert_eq;
 
     #[test]
     fn str() {
