@@ -38,10 +38,12 @@
 )]
 
 pub mod str16;
+pub mod str24;
 pub mod str32;
 pub mod str8;
 
 pub use str16::Str16;
+pub use str24::Str24;
 pub use str32::Str32;
 pub use str8::Str8;
 
