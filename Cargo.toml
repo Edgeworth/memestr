@@ -12,10 +12,10 @@ version = "0.1.0"
 [dependencies]
 derive_more = {version = "2.0.1", features = ["display"]}
 eyre = "0.6.12"
-serde = {version = "1.0.218", features = ["derive"]}
+serde = {version = "1.0.219", features = ["derive"]}
 
 [dev-dependencies]
-criterion = {version = "0.5.1", features = ["real_blackbox", "html_reports"]}
+criterion = {version = "0.6.0", features = ["real_blackbox", "html_reports"]}
 pretty_assertions = "1.4.1"
 
 [[bench]]
