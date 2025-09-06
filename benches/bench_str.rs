@@ -1,6 +1,7 @@
+use std::hint::black_box;
 use std::str::FromStr;
 
-use criterion::{Criterion, black_box, criterion_group, criterion_main};
+use criterion::{Criterion, criterion_group, criterion_main};
 use memestr::strn::StrN;
 
 fn benchmark_methods(c: &mut Criterion) {
